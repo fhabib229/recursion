@@ -4,23 +4,26 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  var arr = [];
-	function run(element, arr, className){
-		var mother = element.childNodes
-		for (var i = 0; i < mother.length; i++){
-			var list = mother[i].classList || [];
-			list.forEach(function(tempClass){
-				if (tempClass === className){
-					arr.push(mother[i]);
-				}
-			})
-			if (mother[i].childNodes[0]){
-				run(mother[i], arr, className);
-			}
-		}
-	}
-	run(document, arr, className);
-	return arr;
+
+//recursion is a natural way to solve tree-like problems, which is why they includes this problem
+var getElementsByClassName = function(className) {
+  var nodes = [];
+
+  var searchNodes = function(node) {
+	  // compare node's classname with className
+	  var parts = node.className.split(' ');
+	  if (parts.indexOf(className) >= 0) {
+		  nodes.push(node);
+	  }
+
+	  // iterate over children
+	  for (var i = 0; i < node.children.length; i++) {
+		  // for each child, invoke searchNodes
+		  searchNodes(node.children[i]);
+	  }
+  };
+
+  searchNodes(document.body);
+
+  return nodes;
 };

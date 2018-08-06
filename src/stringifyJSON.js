@@ -20,7 +20,7 @@ var stringifyJSON = function(obj) {
 		return '[' + answer + ']';
 	}
 
-	if ( !Array.isArray(obj) && typeof obj === "object"){
+	if (!Array.isArray(obj) && typeof obj === "object"){
 		var answer = [];
 
 		for(var key in obj){
